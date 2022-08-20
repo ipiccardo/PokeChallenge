@@ -8,6 +8,7 @@ import {
   faPlay,
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
+import swal from "sweetalert";
 
 import pokemon from "../assets/pokemon.mp3";
 
@@ -77,12 +78,20 @@ export const RandomPokemon = () => {
 
   const showPokemon = (e) => {
     e.preventDefault();
-    if (search.toLowerCase() === pokes.name || search.toLowerCase === "") {
+    if (search.toLowerCase() === pokes.name) {
       setFilter("withoutFilter");
       setSearch("");
       setShowtTitle("");
       setShowtId("");
       setLocalStorage(contador + 1);
+    } else if (search === "") {
+      swal({
+        title: "Por favor ingresá el nombre de algún pokemon",
+        text: "",
+        icon: "warning",
+        button: "aceptar",
+      });
+      setSearch("");
     } else {
       e.preventDefault();
       setFilter("withFilter");
