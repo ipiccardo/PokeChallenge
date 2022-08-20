@@ -64,7 +64,6 @@ export const RandomPokemon = () => {
         name,
       });
       if (!firstPushAlert) {
-        console.log("esta llegando en true");
         swal({
           title: "Advertencia, este cartel te saldrá solo está vez!",
           text: "Recordá que si cambias de pokemons 3 veces sin intentar ninguna respuesta, se te contará 1 respuesta incorrecta",
@@ -83,9 +82,7 @@ export const RandomPokemon = () => {
         setLocalStorageIncorrectas(contadorIncorrectas + 1);
         setContadorBoton(0);
       } else {
-        console.log(contadorBoton);
       }
-
       return {
         pokes,
       };
