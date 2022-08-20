@@ -144,3 +144,38 @@ section {
 .buttonPlay {
     width: 80px;
 }
+
+/* .swhowPlay {
+
+} */
+
+.notShowPlay {
+    display: none;
+}
+
+.notShowPause {
+    display: none;
+}
+
+.swhoPause {
+    display: block;
+}
+
+.showPlay{
+    display: block;
+}
+
+
+@media (max-width: 400px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    form {
+        width: auto;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+}

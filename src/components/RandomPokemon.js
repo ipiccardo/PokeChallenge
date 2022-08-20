@@ -3,7 +3,11 @@ import { getPokemons } from "../helper/allPokemons.ts";
 import "./RandomPokemon.css";
 import ReactHowler from "react-howler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faPlay,
+  faPause,
+} from "@fortawesome/free-solid-svg-icons";
 
 import pokemon from "../assets/pokemon.mp3";
 
@@ -13,6 +17,8 @@ export const RandomPokemon = () => {
   const [showTitle, setShowtTitle] = useState("titleDisplayNone");
   const [showid, setShowtId] = useState("idDisplayNone");
   const [option, setOption] = useState(false);
+  const [play, setPlay] = useState("");
+  const [pause, setPause] = useState("notShowPause");
   const [contador, setContador] = useState(
     window.localStorage.getItem("contador")
   );
@@ -97,8 +103,13 @@ export const RandomPokemon = () => {
 
   const onPlay = () => {
     if (option === true) {
+      setPause("swhoPause");
       setOption(false);
+      setPause("notShowPause");
+      setPlay("showPlay");
     } else {
+      setPlay("notShowPlay");
+      setPause("");
       setOption(true);
     }
   };
@@ -169,7 +180,10 @@ export const RandomPokemon = () => {
         className="nes-btn is-success song buttonPlay"
       >
         <ReactHowler src={pokemon} playing={option} />
-        <FontAwesomeIcon icon={faPlay} />
+
+        <FontAwesomeIcon icon={faPlay} className={play} />
+
+        <FontAwesomeIcon icon={faPause} className={pause} />
       </button>
     </>
   );
