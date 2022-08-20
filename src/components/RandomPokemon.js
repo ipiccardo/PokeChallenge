@@ -20,9 +20,13 @@ export const RandomPokemon = () => {
   const [option, setOption] = useState(false);
   const [play, setPlay] = useState("");
   const [pause, setPause] = useState("notShowPause");
+  const [contadorBoton, setContadorBoton] = useState(0);
+  const [firstPushAlert, setFirstPushAlert] = useState(false);
   const [contador, setContador] = useState(
     window.localStorage.getItem("contador")
   );
+  const [disabled, setDisabled] = useState(false);
+
   const [contadorIncorrectas, setContadorIncorrectas] = useState(
     window.localStorage.getItem("contadorIncorrectas")
   );
@@ -59,9 +63,29 @@ export const RandomPokemon = () => {
         image,
         name,
       });
+      if (!firstPushAlert) {
+        console.log("esta llegando en true");
+        swal({
+          title: "Advertencia, este cartel te saldrá solo está vez!",
+          text: "Recordá que si cambias de pokemons 3 veces sin intentar ninguna respuesta, se te contará 1 respuesta incorrecta",
+          icon: "warning",
+          button: "aceptar",
+        });
+        setFirstPushAlert(true);
+      }
       setFilter("withFilter");
       setShowtTitle("titleDisplayNone");
       setShowtId("idDisplayNone");
+      setDisabled(false);
+      setContadorBoton(contadorBoton + 1);
+
+      if (contadorBoton >= 2) {
+        setLocalStorageIncorrectas(contadorIncorrectas + 1);
+        setContadorBoton(0);
+      } else {
+        console.log(contadorBoton);
+      }
+
       return {
         pokes,
       };
@@ -84,6 +108,7 @@ export const RandomPokemon = () => {
       setShowtTitle("");
       setShowtId("");
       setLocalStorage(contador + 1);
+      setDisabled(true);
     } else if (search === "") {
       swal({
         title: "Por favor ingresá el nombre de algún pokemon",
@@ -108,6 +133,7 @@ export const RandomPokemon = () => {
     setShowtTitle("titleDisplayNone");
     setShowtId("idDisplayNone");
     setFilter("withFilter");
+    setDisabled(false);
   };
 
   const onPlay = () => {
@@ -145,6 +171,7 @@ export const RandomPokemon = () => {
             text="text"
             placeholder="Nombre del Pokemon"
             value={search}
+            disabled={disabled}
           ></input>
           <button
             onClick={showPokemon}
