@@ -2,6 +2,8 @@ import { useState } from "react";
 import { getPokemons } from "../helper/allPokemons.ts";
 import "./RandomPokemon.css";
 import ReactHowler from "react-howler";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 import pokemon from "../assets/pokemon.mp3";
 
@@ -129,7 +131,7 @@ export const RandomPokemon = () => {
             type="button"
             className="nes-btn is-success"
           >
-            search
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
         </form>
         <br />
@@ -164,10 +166,10 @@ export const RandomPokemon = () => {
       <button
         onClick={onPlay}
         type="button"
-        className="nes-btn is-success song"
+        className="nes-btn is-success song buttonPlay"
       >
         <ReactHowler src={pokemon} playing={option} />
-        With Music?
+        <FontAwesomeIcon icon={faPlay} />
       </button>
     </>
   );
