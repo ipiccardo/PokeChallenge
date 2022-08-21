@@ -72,7 +72,7 @@ export const RandomPokemon = () => {
         image,
         name,
       });
-      if (!firstPushAlert && addClass === "nonNextPokemon") {
+      if (!firstPushAlert && addClass === "nonNextPokemon" && contador <= 1) {
         swal({
           title: "Advertencia, este cartel te saldrá solo está vez!",
           text: "Recordá que si cambias de pokemons 3 veces sin intentar ninguna respuesta, se te contará 1 respuesta incorrecta",
@@ -145,6 +145,7 @@ export const RandomPokemon = () => {
     setDisabled(false);
     setFirstPushAlert(true);
     setAddClass("nonNextPokemon");
+    localStorage.clear();
   };
 
   const onPlay = () => {
