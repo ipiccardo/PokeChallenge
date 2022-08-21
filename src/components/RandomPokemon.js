@@ -22,10 +22,8 @@ export const RandomPokemon = () => {
   const [pause, setPause] = useState("notShowPause");
   const [contadorBoton, setContadorBoton] = useState(0);
   const [firstPushAlert, setFirstPushAlert] = useState(false);
-  const [getStorage, setGetStorage] = useState(
-    window.localStorage.getItem("contador")
-  );
-  const [getStorageIncorrectas, setGetStorageIncorrectas] = useState(
+  const [getStorage] = useState(window.localStorage.getItem("contador"));
+  const [getStorageIncorrectas] = useState(
     window.localStorage.getItem("contadorIncorrectas")
   );
   const [contador, setContador] = useState(
