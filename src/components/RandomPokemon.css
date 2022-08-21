@@ -179,3 +179,11 @@ section {
         font-size: 20px;
     }
 }
+
+.nonNextPokemon {
+    display: none;
+}
+
+.nextPokemon {
+    display: block;
+}

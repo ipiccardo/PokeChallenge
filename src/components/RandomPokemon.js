@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getPokemons } from "../helper/allPokemons.ts";
 import "./RandomPokemon.css";
 import ReactHowler from "react-howler";
@@ -22,14 +22,23 @@ export const RandomPokemon = () => {
   const [pause, setPause] = useState("notShowPause");
   const [contadorBoton, setContadorBoton] = useState(0);
   const [firstPushAlert, setFirstPushAlert] = useState(false);
-  const [contador, setContador] = useState(
+  const [getStorage, setGetStorage] = useState(
     window.localStorage.getItem("contador")
   );
-  const [disabled, setDisabled] = useState(false);
-
-  const [contadorIncorrectas, setContadorIncorrectas] = useState(
+  const [getStorageIncorrectas, setGetStorageIncorrectas] = useState(
     window.localStorage.getItem("contadorIncorrectas")
   );
+  const [contador, setContador] = useState(
+    getStorage > 0 ? parseInt(getStorage) : 0
+  );
+
+  const [contadorIncorrectas, setContadorIncorrectas] = useState(
+    getStorageIncorrectas > 0 ? parseInt(getStorageIncorrectas) : 0
+  );
+
+  const [disabled, setDisabled] = useState(false);
+
+  const [addClass, setAddClass] = useState("nonNextPokemon");
 
   const [pokes, setPokes] = useState({
     id: 4,
@@ -63,7 +72,7 @@ export const RandomPokemon = () => {
         image,
         name,
       });
-      if (!firstPushAlert) {
+      if (!firstPushAlert && addClass === "nonNextPokemon") {
         swal({
           title: "Advertencia, este cartel te saldrá solo está vez!",
           text: "Recordá que si cambias de pokemons 3 veces sin intentar ninguna respuesta, se te contará 1 respuesta incorrecta",
@@ -77,6 +86,7 @@ export const RandomPokemon = () => {
       setShowtId("idDisplayNone");
       setDisabled(false);
       setContadorBoton(contadorBoton + 1);
+      setAddClass("nonNextPokemon");
 
       if (contadorBoton >= 2) {
         setLocalStorageIncorrectas(contadorIncorrectas + 1);
@@ -106,6 +116,8 @@ export const RandomPokemon = () => {
       setShowtId("");
       setLocalStorage(contador + 1);
       setDisabled(true);
+      setFirstPushAlert(false);
+      setAddClass("nextPokemon");
     } else if (search === "") {
       swal({
         title: "Por favor ingresá el nombre de algún pokemon",
@@ -131,6 +143,7 @@ export const RandomPokemon = () => {
     setShowtId("idDisplayNone");
     setFilter("withFilter");
     setDisabled(false);
+    setFirstPushAlert(true);
   };
 
   const onPlay = () => {
@@ -162,7 +175,7 @@ export const RandomPokemon = () => {
         </div>
         <form onSubmit={showPokemon} autoComplete="off">
           <input
-            className="nes-input"
+            className="nes-inputs"
             onChange={handleSearch}
             id="name_field"
             text="text"
@@ -185,7 +198,14 @@ export const RandomPokemon = () => {
             type="button"
             className="nes-btn is-primary"
           >
-            Cambiar Pokemon
+            <span
+              className={
+                addClass === "nonNextPokemon" ? "nextPokemon" : "nonNextPokemon"
+              }
+            >
+              Cambiar Pokemon
+            </span>
+            <span className={addClass}>Siguiente Pokemon</span>
           </button>
           <button
             onClick={handleReset}
