@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { getPokemons } from "../helper/allPokemons.ts";
 import "./RandomPokemon.css";
 import ReactHowler from "react-howler";
@@ -144,6 +144,7 @@ export const RandomPokemon = () => {
     setFilter("withFilter");
     setDisabled(false);
     setFirstPushAlert(true);
+    setAddClass("nonNextPokemon");
   };
 
   const onPlay = () => {
